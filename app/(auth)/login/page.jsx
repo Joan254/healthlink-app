@@ -5,44 +5,10 @@ import { MailOutlined, LockOutlined } from '@ant-design/icons';
 import Image from 'next/image';
 import Link from 'next/link';
 import Logo from '/public/icons/logo-black-transparent.png';
-// import axios from 'axios';
-// import { useRouter } from 'next/navigation';
-// import { setCookie } from 'cookies-next';
 
 export default function LoginPage() {
   const [form] = Form.useForm();
-  // const router = useRouter();
-
-  const login = async (values) => {
-    try {
-      const response = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/login`, values);
-      
-      if (response.status === 200 && response.data.success) {
-        setCookie('token', response.data.access_token);
-        setCookie('refresh_token', response.data.refresh_token);
-        router.push('/');
-        message.success(response.data.message);
-      } else {
-        message.error(response.data.message);
-      }
-    } catch (error) {
-      console.error('Login error:', error);
-      message.error('Login failed: An error occurred');
-    }
-  };
-
-  const onFinish = async (values) => {
-    try {
-      await login(values);
-    } catch (error) {
-      message.error('Login failed');
-    }
-  };
-
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-    message.error('Login failed');
-  };
+  
 
   return (
     <div className="flex flex-col lg:flex-row min-h-screen max-h-screen bg-slate-50">
@@ -64,8 +30,6 @@ export default function LoginPage() {
           <Form
             form={form}
             name="login"
-            onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
             layout="vertical"
           >
             <Form.Item
