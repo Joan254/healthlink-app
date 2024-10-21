@@ -5,9 +5,23 @@ import { MailOutlined, LockOutlined } from '@ant-design/icons';
 import Image from 'next/image';
 import Link from 'next/link';
 import Logo from '/public/icons/logo-black-transparent.png';
+import { useRouter } from 'next/navigation';
 
 export default function LoginPage() {
   const [form] = Form.useForm();
+  const router = useRouter();
+
+  const onFinish = (values) => {
+    const { email, password } = values;
+
+    // Mocking an authentication process for example
+    if (email === "user@example.com" && password === "password123") {
+      message.success("Login successful!");
+      router.push("/dashboard"); // Redirect to dashboard
+    } else {
+      message.error("Invalid credentials, please try again.");
+    }
+  };
   
 
   return (
@@ -31,6 +45,7 @@ export default function LoginPage() {
             form={form}
             name="login"
             layout="vertical"
+            onFinish={onFinish}
           >
             <Form.Item
               label="Enter Email"
